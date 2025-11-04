@@ -24,12 +24,19 @@ HEADERS = [
     "DEADLINE",
     "DEADLINE_LANG"
 ]
+def read_from_txt(file,date):
+    # Open and read line by line
+    with open("filename.txt", "r") as file:
+        for line in file:
+            print(line.strip())  # .strip() removes \n at the end
 
+    
 def write_todoist_csv(
     filename: str,
     tasks: List[dict],
     default_date_lang: str = "en",
-    default_timezone: Optional[str] = None
+    default_timezone: Optional[str] = None,
+    task
 ):
     """
     tasks: list of dicts, each dict may have keys:
@@ -129,3 +136,4 @@ if __name__ == "__main__":
 
     write_todoist_csv("todoist_template.csv", tasks, default_date_lang="en", default_timezone="Asia/Jerusalem")
     print("CSV file written: todoist_template.csv")
+
