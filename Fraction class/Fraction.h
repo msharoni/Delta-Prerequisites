@@ -4,24 +4,24 @@ using namespace std;
 
 class Fraction{
 
-    int nominator;
+    int numerator;
     int denominator;
 
-    void setFraction(int _nominator, int _denominator){
-        nominator = _nominator;
+    void setFraction(int _numerator, int _denominator){
+        numerator = _numerator;
         denominator = _denominator;
     }
 
     public:
-    Fraction(int _nominator, int _denominator){
+    Fraction(int _numerator, int _denominator){
         if(!_denominator)
-            throw invalidDenominator("invalid denominator value");
+            throw invalidInput("invalid denominator value");
 
-        setFraction(_nominator, _denominator);            
+        setFraction(_numerator, _denominator);            
     }
 
-    int getNominator(){
-        return nominator;
+    int getNumerator(){
+        return numerator;
     }
 
     int getDenominator(){
@@ -29,7 +29,7 @@ class Fraction{
     }
 
     friend ostream& operator<<(ostream& os, Fraction& _fraction){
-        os << _fraction.getNominator() << '/' << _fraction.getDenominator();
+        os << _fraction.getNumerator() << '/' << _fraction.getDenominator();
         return os;
     }
 
@@ -42,34 +42,63 @@ class Fraction{
         return addOrSub("subtraction", other);
     }
     Fraction operator*(Fraction other){
-        int new_nominator = getNominator() * other.getDenominator();
+        int new_numerator = getNumerator() * other.getDenominator();
         int new_denominator = getDenominator() * other.getDenominator();
-        return Fraction(new_nominator,new_denominator);
+        return Fraction(new_numerator,new_denominator);
     }
     Fraction operator/(Fraction other){
-        int new_nominator = getNominator() * other.getDenominator();
-        int new_denominator = getDenominator() * other.getNominator();
-        return Fraction(new_nominator,new_denominator);
+        int new_numerator = getNumerator() * other.getDenominator();
+        int new_denominator = getDenominator() * other.getNumerator();
+        return Fraction(new_numerator,new_denominator);
     }
     bool operator==(Fraction other){
-
+        return other.getNumerator() * getDenominator() == other.getDenominator() * getNumerator();
     }
 
+    bool operator!=(Fraction other){
+        return !(*this == other);
+    }
+    bool operator<(Fraction other){
+        return getNumerator() * other.getDenominator() < getDenominator() * other.getDenominator();
+    }
+    bool operator>(Fraction other){
+        return !(*this == other || *this < other);
+    }
+    bool operator>=(Fraction other){
+        return !(*this < other);
+    }
+    bool operator<=(Fraction other){
+        return !(*this > other);
+    }
+    operator double(){
+        return double(getNumerator()/getDenominator());
+    }
+    operator float(){
+        return float(getNumerator()/getDenominator());
+    }
     //instead of writing the same code block twice (more readable)
     Fraction addOrSub(char* operation, Fraction _other){
-        int new_nominator = 0;
-        int nominator1 = getNominator() * _other.getDenominator();
-        int nominator2 = _other.getNominator() * getDenominator();
+        int new_numerator = 0;
+        int numerator1 = getNumerator() * _other.getDenominator();
+        int numerator2 = _other.getNumerator() * getDenominator();
         if(operation == "addition")
-            new_nominator = nominator1 + nominator2;
+            new_numerator = numerator1 + numerator2;
         else if(operation == "subtraction")
-            new_nominator = nominator1 - nominator2;
+            new_numerator = numerator1 - numerator2;
         int new_denominator = getDenominator() * _other.getDenominator();
-        int GCD = findGCD(new_nominator, new_denominator);            
-        Fraction ans = Fraction(new_nominator/GCD, new_denominator/GCD);
+        int GCD = findGCD(new_numerator, new_denominator);            
+        Fraction ans = Fraction(new_numerator, new_denominator);
+        ans.simplify();
         return ans;
     }
-    //Helps simplify the fraction after adding or subtracting
+
+    //simplifies the fraction making it more readable and easier to operate upon
+    void simplify(){
+        int GCD = findGCD(getNumerator(),getDenominator());
+        setFraction(getNumerator() / GCD, getDenominator() / GCD);
+    }
+
+    //Helps simplify the fraction by using the eucledian method to find gcd
     int findGCD(int num1, int num2){
 
         int help = num2;
@@ -80,4 +109,5 @@ class Fraction{
         }
         return help;
     }
+     
 };
