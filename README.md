@@ -1,2 +1,2 @@
-# daily-coding-problem
-solutions to daily coding problems from dailycodingproblems.com
+# delta prequisites 
+solutions of the prerequistite problems given before starting the delta course
