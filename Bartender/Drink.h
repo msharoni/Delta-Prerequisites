@@ -12,7 +12,7 @@ class Drink{
     virtual const char* getName(){
         return name;
     }
-    virtual void describe(){cout<<"bro";}
+    virtual void prepare(){cout<<"All you've got to do is drink your "<< getName() << endl;}
     virtual ~Drink() = default;
 
 };
@@ -24,7 +24,16 @@ class Wine : public Drink{
     public: 
     Wine(const char* _name, int _year, int _temperature, const char* _color)
         : Drink(_name, _temperature), year(_year), color(_color) {}
-
+    
+    int getYear(){
+        return year;
+    }
+    const char* getName() override{
+        //making sure our data dosent return corupted
+        static thread_local string help;
+        help = string(Drink::getName()) + "(Year " + to_string(getYear()) + ")";
+        return help.c_str();
+    } 
 };
 class CarmelEmeraldRazling : public Wine{
     public:
@@ -74,7 +83,10 @@ class Beer : public Drink{
     Beer(const char* _name, int _temperature)
         : Drink(_name, _temperature) {}
 
-    void describe() override {cout<<"in";}
+    void prepare() override {
+        cout<<"You ordered " << getName() <<endl;
+        cout<<"Well, all you need to do is pour it into a glass and serve."<<endl;
+    }
      
 };
 
