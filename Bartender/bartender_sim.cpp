@@ -28,7 +28,7 @@ enum BeerType{
 //tried using files to maybe make the data insertion more seamless      
 /*
 //initialize the bars _stock
-Drink* createBar(string drinks_file){
+Drink* create_bar(string drinks_file){
     int numOfDrinks = 0;
 
     ifstream file(drinks_file);
@@ -69,66 +69,66 @@ Drink Decypher(string str){
     }
 */
 
-int getRandNumber(int delta, int start = 0){
+int get_rand(int delta, int start = 0){
     return start + rand() % delta;
 }
 
-Drink** initializeStock(int &numOfDrinks){
+Drink** initialize_stock(int &numOfDrinks){
     srand(time(0));
     numOfDrinks = 3 + rand() % 10; 
 
     Drink** _stock = new Drink*[numOfDrinks];
 
     //given values to start off the dynamic array
-    _stock[0] = new CarmelEmeraldRazling(1986, getRandNumber(18,3));
-    _stock[1] = new GolanSmadar(1989, getRandNumber(18,3));
-    _stock[2] = new YardenHarChermonAdom(1994, getRandNumber(18,3));
+    _stock[0] = new CarmelEmeraldRazling(1986, get_rand(18,3));
+    _stock[1] = new GolanSmadar(1989, get_rand(18,3));
+    _stock[2] = new YardenHarChermonAdom(1994, get_rand(18,3));
     
 
     //simulate some random values to fill out the bar
 
     for(int i=0; i < numOfDrinks - 3; ++i){
         
-        switch(getRandNumber(2)){
+        switch(get_rand(2)){
             case beer:
-                switch(getRandNumber(4)){
+                switch(get_rand(4)){
                     case heineken:
-                        _stock[i + 3] = new Heineken(getRandNumber(4,4));
+                        _stock[i + 3] = new Heineken(get_rand(4,4));
                         break;
                     case goldstar:
-                        _stock[i + 3] = new Goldstar(getRandNumber(4,4));
+                        _stock[i + 3] = new Goldstar(get_rand(4,4));
                         break;
                     case maccabi:
-                        _stock[i + 3] = new Maccabi(getRandNumber(4,4));
+                        _stock[i + 3] = new Maccabi(get_rand(4,4));
                         break;
                     case tuborg:
-                        _stock[i + 3] = new Tuborg(getRandNumber(4,4));
+                        _stock[i + 3] = new Tuborg(get_rand(4,4));
                         break;
                 }
                 break;
 
             case wine:
-                switch (getRandNumber(7)){
+                switch (get_rand(7)){
                     case carmelEmeraldRazling:
-                        _stock[i + 3] = new CarmelEmeraldRazling(1970, getRandNumber(18,3));
+                        _stock[i + 3] = new CarmelEmeraldRazling(1970, get_rand(18,3));
                         break;
                     case golanSmadar:
-                        _stock[i + 3] = new GolanSmadar(1970, getRandNumber(18,3));
+                        _stock[i + 3] = new GolanSmadar(1970, get_rand(18,3));
                         break;
                     case yardenSherdona:
-                        _stock[i + 3] = new YardenSherdona(1970, getRandNumber(18,3));
+                        _stock[i + 3] = new YardenSherdona(1970, get_rand(18,3));
                         break;
                     case keanti:
-                        _stock[i + 3] = new Keanti(1970, getRandNumber(18,3));
+                        _stock[i + 3] = new Keanti(1970, get_rand(18,3));
                         break;
                     case yardenHarChermonAdom:
-                        _stock[i + 3] = new YardenHarChermonAdom(1970, getRandNumber(18,3));
+                        _stock[i + 3] = new YardenHarChermonAdom(1970, get_rand(18,3));
                         break;
                     case yardenKavernaSovinion:
-                        _stock[i + 3] = new YardenKavernaSovinion(1970, getRandNumber(18,3));
+                        _stock[i + 3] = new YardenKavernaSovinion(1970, get_rand(18,3));
                         break;
                     case chateauMargot:
-                        _stock[i + 3] = new ChateauMargot(1970, getRandNumber(18,3));
+                        _stock[i + 3] = new ChateauMargot(1970, get_rand(18,3));
                         break;
                 }
                 break;
@@ -141,7 +141,7 @@ int main(){
 
     //initialize bars stock using given objects and random created ones
     int numOfDrinks = 0;
-    Drink** stock = initializeStock(numOfDrinks);
+    Drink** stock = initialize_stock(numOfDrinks);
 
     //create a list of the drinks that the customer has ordered
     int numOfCustomerDrinks = 0;    
