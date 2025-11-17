@@ -52,15 +52,15 @@ void print_hanukia(){
 
 int main(){
 
-    int numDays;
+    int num_days;
 
     //prompt user and read input
     printf("Enter number of days Hanukkah lasts (from 1 to 8): ");
-    scanf("%d",&numDays);
+    scanf("%d",&num_days);
 
     //print the hanukia's candles based on user input
     printf(" ");
-    printf("%.*s\n", numDays * 5, candles);
+    printf("%.*s\n", num_days * 5, candles);
     printf("%s\n",base);
 
     //print_hanukia();
