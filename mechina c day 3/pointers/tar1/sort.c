@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-#define size 5
+#define size 8
 
 void bubble_sort(int **arr){
     for(int i = 0; i < size; ++i){
